@@ -6,3 +6,6 @@ Flask-WTF==1.2.2
 
 # Requests (if your app makes API requests)
 requests==2.32.2
+
+# Redis
+redis==5.2.0
