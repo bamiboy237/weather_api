@@ -1,5 +1,4 @@
 from flask import Flask, render_template, flash, redirect, url_for, jsonify
-from config import Config
 from app.forms import WeatherForm
 import requests
 import json, os
