@@ -29,7 +29,7 @@ def index():
     if form.validate_on_submit():
         city = form.cityname.data
         # Construct the API URL for fetching weather data
-        base_url = f'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{city}?unitGroup=us&include=current%2Cevents%2Calerts&key={os.environ.get(WEATHER_API_KEY)}&contentType=json'
+        base_url = f'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{city}?unitGroup=us&include=current%2Cevents%2Calerts&key={os.environ.get('WEATHER_API_KEY')}&contentType=json'
         
         try:
             # Fetch weather data from the API
