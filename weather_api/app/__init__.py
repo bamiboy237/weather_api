@@ -2,7 +2,7 @@ from flask import Flask, render_template, flash, redirect, url_for, jsonify
 from config import Config
 from app.forms import WeatherForm
 import requests
-import json
+import json, os
 import redis
 from datetime import datetime
 from flask_limiter import Limiter
@@ -13,7 +13,6 @@ import google.generativeai as genai
 
 # Initialize Flask application
 app = Flask(__name__)
-app.config.from_object(Config)
 
 
 # Initialize Redis client
@@ -30,7 +29,7 @@ def index():
     if form.validate_on_submit():
         city = form.cityname.data
         # Construct the API URL for fetching weather data
-        base_url = f'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{city}?unitGroup=us&include=current%2Cevents%2Calerts&key={app.config["API_KEY"]}&contentType=json'
+        base_url = f'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{city}?unitGroup=us&include=current%2Cevents%2Calerts&key={os.environ.get(WEATHER_API_KEY)}&contentType=json'
         
         try:
             # Fetch weather data from the API
@@ -83,7 +82,7 @@ def weather():
         dew = weather_data['days'][0]['dew']
 
         ## Use google genai for weather summary
-        genai.configure(api_key="AIzaSyC29PlZiwWLucDkpuFBTxllQwUjJ7TCNTE")
+        genai.configure(api_key=os.environ.get('GEMINI_API_KEY'))
         model = genai.GenerativeModel("gemini-1.5-flash")
         response = model.generate_content(f"You are a professional news reporter analyze the weather data in {weather_json} and produce a VERY short concise report of the , include suggestion and cautions. A one line short summary of the weather and a one line short suggestion on activities or what to wear and/or a caution")
         summary = response.text
