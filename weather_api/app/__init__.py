@@ -12,6 +12,7 @@ import google.generativeai as genai
 
 # Initialize Flask application
 app = Flask(__name__)
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or secrets.token_hex(16)
 
 
 # Initialize Redis client
