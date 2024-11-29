@@ -9,3 +9,6 @@ requests==2.32.2
 
 # Redis
 redis==5.2.0
+
+# Rate limiting
+flask-limiter==3.9.2
