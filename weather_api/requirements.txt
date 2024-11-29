@@ -12,3 +12,6 @@ redis==5.2.0
 
 # Rate limiting
 flask-limiter==3.9.2
+
+# google genai
+google-generativeai==0.8.3
